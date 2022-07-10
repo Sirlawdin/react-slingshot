@@ -4,7 +4,6 @@ commands:
   chk:
     steps:
       - checkout
-      - run: npm i
 
 defaults: &defaultImage
   docker:
@@ -16,18 +15,21 @@ jobs:
 
     steps:
       - chk
+      - run: npm i
       - run: npm run lint
 
   test:
     <<: *defaultImage
     steps:
       - chk
+      - run: npm i
       - run: npm run test
   
   analyze:
     <<: *defaultImage
     steps:
       - chk
+      - run: npm i
       - run: npm audit
   
   failed_job_response:
