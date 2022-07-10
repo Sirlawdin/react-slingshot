@@ -1,0 +1,53 @@
+version: 2.1
+
+commands:
+  chk:
+    steps:
+      - checkout
+      - run: npm i
+
+defaults: &defaultImage
+  docker:
+    - image: circleci/node:13.8.0
+
+jobs:
+  build:
+    <<: *defaultImage
+
+    steps:
+      - chk
+      - run: npm run lint
+
+  test:
+    <<: *defaultImage
+    steps:
+      - chk
+      - run: npm run test
+  
+  analyze:
+    <<: *defaultImage
+    steps:
+      - chk
+      - run: npm audit
+  
+  failed_job_response:
+    <<: *defaultImage
+    steps:
+      - run: exit 0
+      - run: 
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
+    
+
+workflows:
+  my_workflow:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires: 
+            - test
+      - failed_job_response
