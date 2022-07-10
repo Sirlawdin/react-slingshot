@@ -30,7 +30,7 @@ jobs:
     steps:
       - chk
       - run: npm i
-      - run: npm run fix
+      - run: npm audit fix
       - run: npm audit
   
   failed_job_response:
