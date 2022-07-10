@@ -30,6 +30,7 @@ jobs:
     steps:
       - chk
       - run: npm i
+      - run: npm install
       - run: npm audit fix
       - run: npm audit
   
