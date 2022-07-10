@@ -29,8 +29,8 @@ jobs:
     <<: *defaultImage
     steps:
       - chk
-      - run: npm i
       - run: npm install
+      - run: npm i
       - run: npm audit fix
       - run: npm audit
   
